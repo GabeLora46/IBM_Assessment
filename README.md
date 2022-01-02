@@ -2,8 +2,6 @@
 The Project is meant to use to replicate a Work Orders Complaint. 
 
 
-The Project is meant to use to replicate a Work Orders Complaint.
-
 Upon Entering the Site, Users are able to file a workorder complaint that will be handled shortly.
 
 Staff and Admin can Login and start sending work orders out.
