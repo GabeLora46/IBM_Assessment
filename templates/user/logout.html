@@ -1,0 +1,25 @@
+{% extends 'partials/base.html'%}
+
+{% block title%} Log Out {% endblock %}
+{% load crispy_forms_tags %}
+{% block content %}
+<!-- Page when User Logs Out-->
+<div class="container">
+    <div class="row mt-5">
+        <div class="col-md-6 offset-md-3">
+            <div class="border bg-white p-3">
+                <h3>Logout Page</h3>
+                <hr>
+                <div class="alert alert-danger">
+                    <h4> Log out Succesfully</h4>
+
+                </div>
+                <a class="badge badge-dark" href="{%url 'user-login' %}">Login</a>
+                <a class="badge badge-dark" href="{%url 'dashboard-index' %}"> Work Order Request</a>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{% endblock%}

@@ -1,0 +1,44 @@
+body{
+    background: rgb(209, 206, 206);
+}
+
+.my-card:hover{
+    transform: scale(1.1);
+    transition: 0.2s ease-in-out;
+}
+
+
+.modal-header {
+
+    padding: 2px 16px;
+    background-color: #e61c66;
+    color: white;
+}
+
+.modal-body{
+    padding: 2px 16px;
+}
+
+.modal-footer{
+    padding: 2px 16px;
+    background-color: #e61c66;
+    color: white;
+}
+
+.modal-content{
+    position: relative;
+    background-color: #fefefe;
+    margin: auto;
+    padding: 0;
+    border: 1px solid #888;
+    width: 100%;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+
+.dev-info{
+    width: 50%;
+    text-align: center;
+    font-family: helvetica;
+    font-weight: bold;
+    display: inline;
+}

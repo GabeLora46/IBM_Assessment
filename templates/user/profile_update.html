@@ -1,0 +1,41 @@
+{% extends 'partials/base.html'%}
+
+{% block title%} Profile {% endblock %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<!-- Page when user wants to edit profile, can edit username, email, address, phone, and add a profile picture-->
+<div class="container">
+    <div class="row my-4">
+        <div class="col-md-4">
+
+        </div>
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header bg-info text-white">
+                    Profile Page
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <span class="h4"> Profile Information</span> 
+                            <hr>
+                            <form method="POST" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                {{ user_form|crispy }}
+                                {{ profile_form|crispy }}
+                            <input class ="btn btn-dark" type="submit" value="Update">
+                            <a class="btn btn-danger btn-sm float-right" href="{% url 'user-profile' %}"> Back</a>
+                            </form>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

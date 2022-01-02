@@ -1,0 +1,189 @@
+{% extends 'partials/base.html' %}
+{% block title %} Staff Page {% endblock %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<!-- If user is staff or Admin, has access to staff page-->
+{% if user.is_authenticated and user.is_staff%}
+
+<!-- Welcome -->
+<div class="row">
+    <div class="col-md-8 mt-4">
+        <div class="card">
+            <div class="card-header bg-dark text-white">
+               Work Order Statistics
+            </div>
+            <div class="card-body">
+                <div class="row">
+                        <div class="col-md-4">
+                            <div class="text-decoration-none text-dark" href="#">
+                                <div class="card text-center">
+                                    <div class="card-body text-center">
+                                        <h3> Total Work Orders:</h3>
+                                        <h2> {{counter}}</h2>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                
+                    <div class="col-md-4">
+                        <a class="text-decoration-none text-dark" href="#">
+                            <div class="card my-card shadow">
+                                <div class="card-body text-center">
+                                    <h4>Total Plumbing</h4>
+                                    <h3>{{pl}}</h3>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-md-4">
+                        <a class="text-decoration-none text-dark" href="#">
+                            <div class="card my-card shadow">
+                                <div class="card-body text-center">
+                                    <h4>Total Electrical</h4>
+                                    <h3>{{el}}</h3>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-md-4">
+                        <a class="text-decoration-none text-dark" href="#">
+                            <div class="card my-card shadow">
+                                <div class="card-body text-center">
+                                    <h4>Total Maintenance</h4>
+                                    <h3>{{mt}}</h3>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-md-4">
+                        <a class="text-decoration-none text-dark" href="#">
+                            <div class="card my-card shadow">
+                                <div class="card-body text-center">
+                                    <h4>Total CUSTODIAL</h4>
+                                    <h3>{{cas}}</h3>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-md-4">
+                        <a class="text-decoration-none text-dark" href="#">
+                            <div class="card my-card shadow">
+                                <div class="card-body text-center">
+                                    <h4>Total Engineering</h4>
+                                    <h3>{{eng}}</h3>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-md-4">
+                        <a class="text-decoration-none text-dark" href="#">
+                            <div class="card my-card shadow">
+                                <div class="card-body text-center">
+                                    <h4>Total Exterminator</h4>
+                                    <h3>{{ext}}</h3>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- If they are a superuser, has quick access to see the Admin Portal-->
+            
+            {% if user.is_authenticated and user.is_superuser%}
+                <div class="model-footer">
+                    
+                    <a class="btn btn-dark" href="{% url 'admin-index' %}"> Admin Portal</a>
+                    <hr>
+                </div>
+            {% endif %}
+                
+            
+        </div>
+    </div>
+</div>
+
+
+<!-- Work Order Tables -->
+<div class="container">
+    <div class="card">
+        <div class="card-header bg-dark text-white">
+           Work Order's
+        </div>
+    <table class="table table-hover">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="float-right">Actions</th>
+            <th scope="col">Name</th>
+            <th scope="col">Complant</th>
+            <th scope="col">Category</th>
+        </tr>
+        </thead>
+        <tbody>
+            {% for data in report_data %}
+            <tr>
+                <td class="float-left">
+                    <a href="{% url 'staff-view' data.id %}" class="badge badge-dark">View</a>
+                    <div class="btn-group" role="group">
+                        <button id="btnGroupDrop1" type="button" class="badge badge-warning dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                          Send Work Order
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                          <a class="dropdown-item" href="{% url 'staff-sent' data.id %}">Send Plumber</a>
+                          <a class="dropdown-item" href="{% url 'staff-sent' data.id %}">Send Mechanic</a>
+                          <a class="dropdown-item" href="{% url 'staff-sent' data.id %}">Send Electrician</a>
+                          <a class="dropdown-item" href="{% url 'staff-sent' data.id %}">Send Custodian</a>
+                          <a class="dropdown-item" href="{% url 'staff-sent' data.id %}">Send Engineer</a>
+                        </div>
+                      </div>
+                </td>
+                
+                <td> {{data.name}} </td>
+                <td>{{data.complant}}</td>
+                <td>{{data.cateogry}}</td>
+            </tr>
+            {% endfor %}
+        
+        </tbody>
+    </table>
+    
+    
+</div>
+
+<!-- States what version of the web application-->
+<a href=""><div id="version-display" data-toggle="modal" data-target='#myModal'> Version 1.0</div>
+    <div id= "myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4> <div class="model-title"> System info</div></h4>
+                </div>
+                <div class="model-body">
+                    <div class="dev-info">
+                        <p class=""><b> Work Orders Website</b></p>
+                        <p>VERSIOM: 1.0</p><br>
+
+                        <p class="modal-header"> DEVELOPER</p>
+                        <p>Gabe</p>
+                        <p>Alpha Build</p>
+                    </div>
+                </div>
+
+
+                <div class="model-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal"> Close </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</a>
+
+<!-- For User that don't have access-->
+{% else %}
+<div class="container">
+    <h3> Do not have Permission to access this page :(</h3>
+</div>
+{% endif %}
+{% endblock %}

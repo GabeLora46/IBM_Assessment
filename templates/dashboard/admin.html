@@ -1,0 +1,129 @@
+{% extends 'partials/base.html' %}
+{% block title %} Staff Page {% endblock %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+{% if user.is_authenticated and user.is_staff and user.is_superuser %}
+
+
+<!-- Header-->
+<div class="container">
+    <div class="row md-8">
+        <div class="card">
+            <div class="card-header bg-dark text-white">
+                Settings 
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-10 p-7">
+                        <div class="text-decoration-none text-dark">
+                            <a class= "badge badge-dark" href="{% url 'user-register' %}"> Register New Employee</a>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="model-footer">
+                        <a class="badge badge-dark" href="{% url 'staff-index' %}"> Work Orders</a>
+                    </div>
+            </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Data Graphs-->
+<div class="row ">
+    <div class="col-md-6 my-4">
+        <div class="card">
+            <h4> Data Visualization Of Work Orders </h4>
+        </div>
+        <div class="bg-white">
+            <div class="card-body">
+                <canvas id="myChart1" width="400" height="300"></canvas>
+                <script>
+                    var ctx = document.getElementById('myChart1').getContext('2d');
+                    var myChart1 = new Chart(ctx, {
+                        type: 'pie',
+                        data: {
+                            labels: ['Plumbing', 'Electrical', 'Maintenance', 'CUSTODIAL', 'Engineering', 'Exterminator'],
+                    datasets: [{
+                        label: 'Number of Products',
+                        data: ['{{pl}}', '{{el}}', '{{mt}}', '{{cas}}', '{{eng}}', '{{ext}}'],
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                            borderColor: [
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 206, 86, 1)',
+                                'rgba(75, 192, 192, 1)',
+                                'rgba(153, 102, 255, 1)',
+                                'rgba(255, 159, 64, 1)'
+                            ],
+                                borderWidth: 1
+                    }]
+                        },
+                    options: {
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero: true
+                                }
+                            }]
+                        }
+                    }
+                    });
+                </script>
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="col-md-5 my-3">
+        <h4> Employee Information</h4>
+        <table class="table table-striped table-dark">
+            <thead>
+              <tr>
+                <th scope="col">Actions</th>
+                <th scope="col">Staff</th>
+                <th scope="col">Address</th>
+                <th scope="col">Phone</th>
+                
+              </tr>
+            </thead>
+            <tbody>
+                {% for data in staff_data%}
+              <tr>
+                <td class="float-left">
+                    <a href="{% url 'admin-fire' data.id %}" class="badge badge-danger">Fire</a>
+                    
+                </td>
+                <td>{{data.staff.username}}</td>
+                <td>{{data.address}}</td>
+                <td>{{data.phone}}</td>
+              </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% else %}
+<!-- When Users try to access a site without login credientals-->
+<div class="container">
+    <h3> Do not have Permission to access this page :(</h3>
+</div>
+
+{% endif%}
+
+
+{% endblock %}
+

@@ -1,0 +1,31 @@
+<!-- As a heading -->
+<nav class="navbar navbar-lg  navbar-dark bg-dark">
+    <a class="navbar-brand mb-0 h1" href="{% url 'dashboard-index' %}">Work Order Request</a>
+    {% if user.is_authenticated %}
+    <!-- If they're logged in, sees profile and logout-->
+    <ul class="navbar-nav mp-5">
+        <li class="nav-item">
+            <a class="btn btn-dark" href="{% url 'user-profile' %}">Profile</a><span>
+                <div class="sr-only">(current)</div>
+            </span>
+        
+        </li>
+        <li class="nav-item">
+            <a class="btn btn-dark" href="{% url 'user-logout' %}">Logout</a>
+           
+            
+        </li>
+    </ul>
+
+    {% else %}
+    <!-- If not logged in, has the chance to login-->
+    <ul class="navbar-nav ml-auto">
+        <li class="nav-item active">
+
+            <a class="btn btn-dark" href="{% url 'user-login' %}">Login</a><span
+                    class="sr-only">(current)</span>
+        </li>
+        
+    </ul>
+    {% endif %}
+  </nav>

@@ -1,0 +1,46 @@
+{% extends 'partials/base.html' %}
+{% block title %} Dashboard {% endblock %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="card">
+    
+</div>
+<body>
+    <!-- Lets Users know that their request were sent-->
+    <div class="mx-auto" style="width: 400px;">
+        <div class="mp-4">
+            {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                        <li {% if message.tags %} class="{{message.tags}}" {% endif %}> {{message}}</li>
+                        {% endfor %}
+                </ul>
+            {% endif %}
+
+            <!-- Work Order Form -->
+            <div class="border p-7">
+                <h4> Request Information</h4>
+                <hr>
+                <form method = "POST">
+                    {% csrf_token %}
+                    {{ form|crispy }}
+
+                    <input class="bin btn-success btn-block" type="submit" value="Submit">
+                </form>
+            </div>
+            <!-- If user is in the system (staff or Admin), has quick access to portals-->
+            {% if user.is_authenticated and user.is_staff%}
+                <div class="model-footer">
+                    
+                    <a class="btn btn-dark" href="{% url 'staff-index' %}"> Staff Portal</a>
+                    <hr>
+                </div>
+            {% endif %}
+
+        </div>
+
+    </div>
+</body>
+
+{% endblock %}
